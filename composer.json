@@ -1,0 +1,17 @@
+{
+    "name": "thshiro/shirolib",
+    "description": "Biblioteca pessoal para desenvolvimento PHP",
+    "authors": [
+        {
+            "name": "Thalisson Barbosa",
+            "email": "thalisson.sbarbosa@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        
+    }
+}
