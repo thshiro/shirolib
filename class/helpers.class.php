@@ -1,5 +1,5 @@
 <?php
-namespace Shirolib;
+namespace Lib\Shirolib;
 
 class Helpers {
 
