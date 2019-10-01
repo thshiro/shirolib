@@ -1,5 +1,6 @@
 {
     "name": "thshiro/shirolib",
+    "version": "v0.1",
     "description": "Biblioteca pessoal para desenvolvimento PHP",
     "authors": [
         {
