@@ -13,11 +13,11 @@ class Session {
 
     $url = $_SERVER['PHP_SELF'];
 
-    if(!isset($_SESSION['usuario_id']) && $url == '/dashboard.php'){
+    if(!isset($_SESSION['usuario_id']) && ($url == '/dashboard.php' || $url == '/index.php')){
 
       header('Location: '.URL_ROOT.'/login.php');
 
-    }elseif(isset($_SESSION['usuario_id']) && $url == '/dashboard.php'){
+    }elseif(isset($_SESSION['usuario_id']) && ($url == '/index.php' || $url == '/login.php')){
 
       header('Location: '.URL_ROOT.'/dashboard.php');
 
