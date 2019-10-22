@@ -1,5 +1,5 @@
 <?php
-namespace Lib\Shirolib;
+namespace thshiro\shirolib;
 
 class Session {
 
