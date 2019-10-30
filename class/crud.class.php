@@ -1,51 +1,58 @@
 <?php
 namespace thshiro\shirolib;
 
-class CRUD {
+/**
+* Bases for SQL PDO Insert, Update and Delete
+*
+* @param PDO $this->connection is the pdo connection
+*/
+class Crud
+{
 
-
-  /*
-  * @description BASE DE INSERT PARA FORMULÁRIOS
-  * CAMPOS NAME IGUAL AOS CAMPOS DA TABELA ALVO
+  /**
+  * Insert PDO base
+  *
+  * @param string $table the target for insert
+  * @param array $data the data for insert
+  * @param string $database the database for insert (optional)
   */
-  public function insert($TABLE, $DATA, $DB = ''){
+  public function insert($table, $data, $database = false)
+  {
 
+    $table = !empty($database) ? $database.'.'.$table : $table;
 
-    $TABLE = (!empty($DB))? $DB.'.'.$TABLE : $TABLE;
-
-
-    // montando campos
+    # Setting fields
     $fields = '';
-    foreach($DATA as $key => &$value){
-      if(empty($fields)){
+    foreach ($data as $key => &$value) {
+      if (empty($fields)) {
         $fields .= $key;
-      }else{
+      } else {
         $fields .= ", ".$key;
       }
     }
 
-    // montando values
+    # Setting values
     $values = '';
-    foreach($DATA as $key => &$value){
-      if(empty($values)){
+    foreach ($data as $key => &$value) {
+      if (empty($values)) {
         $values .= ":".$key;
-      }else{
+      } else {
         $values .= ", :".$key;
       }
     }
 
-    // Montando sql
-    $SQL = $this->Conexao->prepare(
-      "INSERT IGNORE INTO {$TABLE} ({$fields}) VALUES ({$values})"
+    # Setting insert SQL
+    $SQL = $this->connection->prepare(
+      "INSERT IGNORE INTO {$table} ({$fields}) VALUES ({$values})"
     );
 
-    // Setando binds
+    ## Setting binds
     $null = null;
-    foreach($DATA as $key => &$value){
+    foreach ($data as $key => &$value) {
       $value = $value;
-      if(empty($value)){
+      if (empty($value)) {
         $SQL->bindParam(':'.$key, $null, \PDO::PARAM_NULL);
-      }else{
+      } else {
         $SQL->bindParam(':'.$key, $value);
       }
     }
@@ -56,43 +63,44 @@ class CRUD {
 
 
 
-
-  /*
-  * @description BASE DE INSERT PARA FORMULÁRIOS
-  * CAMPOS NAME IGUAL AOS CAMPOS DA TABELA ALVO
+  /**
+  * Update PDO base
+  *
+  * @param string $table is the table target for update
+  * @param array $data is the data for update
+  * @param string $where is the where clause for the update (optional)
+  * @param string $database the database for insert (optional)
   */
-  public function update($TABLE, $DATA, $WHERE = '', $DB = ''){
+  public function update($table, $data, $where = '', $database = '')
+  {
 
+    $table = !empty($database) ? $database.'.'.$table : $table;
 
-    $TABLE = (!empty($DB))? $DB.'.'.$TABLE : $TABLE;
-
-
-    // montando campos
+    # Setting fields
     $fields = '';
-    foreach($DATA as $key => &$value){
-      if(empty($fields)){
+    foreach ($data as $key => &$value) {
+      if (empty($fields)) {
         $fields .= $key." = :".$key;
-      }else{
+      } else {
         $fields .= ", ".$key." = :".$key;
       }
     }
 
-    // Montando sql
-    $SQL = $this->Conexao->prepare(
-      "UPDATE {$TABLE} SET {$fields} {$WHERE}"
+    # Setting update SQL
+    $SQL = $this->connection->prepare(
+      "UPDATE {$table} SET {$fields} {$WHERE}"
     );
 
-    // Setando binds
+    # Setting binds
     $null = null;
-    foreach($DATA as $key => &$value){
+    foreach ($data as $key => &$value) {
       $value = $value;
-      if(empty($value)){
+      if (empty($value)) {
         $SQL->bindParam(':'.$key, $null, \PDO::PARAM_NULL);
-      }else{
+      } else {
         $SQL->bindParam(':'.$key, $value);
       }
     }
-
 
     $SQL->execute();
 
@@ -100,17 +108,19 @@ class CRUD {
 
 
 
-
-  /*
-  * @description BASE DE DELETE
+  /**
+  * Delete PDO base
   *
+  * @param string $table is the table target for delete
+  * @param string $where is the where clause for delete
+  * @param string $database the database for delete (optional)
   */
-  public function delete($TABLE, $COLUMN, $ID, $DB = ''){
+  public function delete($table, $where, $database = '')
+  {
 
+    $table = !empty($database) ? $database.'.'.$table : $table;
 
-    $TABLE = (!empty($DB))? $DB.'.'.$TABLE : $TABLE;
-
-    $SQL = $this->Conexao->prepare("DELETE FROM {$TABLE} WHERE {$COLUMN} = '{$ID}' ");
+    $SQL = $this->connection->prepare("DELETE FROM {$table} WHERE {$where}");
     $SQL->execute();
 
   }
