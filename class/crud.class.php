@@ -88,7 +88,7 @@ class Crud
 
     # Setting update SQL
     $SQL = $this->connection->prepare(
-      "UPDATE {$table} SET {$fields} {$WHERE}"
+      "UPDATE {$table} SET {$fields} {$where}"
     );
 
     # Setting binds
