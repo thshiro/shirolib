@@ -6,11 +6,9 @@
 */
 function arrayToUpper($array){
 
-  $newArray = [];
+    array_walk_recursive($array, function (&$value, $key) {
+        $value = mb_convert_case($value, MB_CASE_UPPER, 'UTF-8');
+    });
 
-  foreach ($newArray as $key => $value) {
-    $newArray[$key] = mb_convert_case($value, MB_CASE_UPPER, 'UTF-8');
-  }
-
-  return $newArray;
+  return $array;
 }
