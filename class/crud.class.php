@@ -57,7 +57,13 @@ class Crud
       }
     }
 
-    $SQL->execute();
+    try {
+        $SQL->execute();
+    } catch (Exception $e) {
+        echo "Sorry, something went wrong. :(";
+    }
+
+
 
   }
 
@@ -102,7 +108,11 @@ class Crud
       }
     }
 
-    $SQL->execute();
+    try {
+        $SQL->execute();
+    } catch (Exception $e) {
+        echo "Sorry, something went wrong. :(";
+    }
 
   }
 
@@ -121,7 +131,12 @@ class Crud
     $table = !empty($database) ? $database.'.'.$table : $table;
 
     $SQL = $this->connection->prepare("DELETE FROM {$table} WHERE {$where}");
-    $SQL->execute();
+
+    try {
+        $SQL->execute();
+    } catch (Exception $e) {
+        echo "Sorry, something went wrong. :(";
+    }
 
   }
 
