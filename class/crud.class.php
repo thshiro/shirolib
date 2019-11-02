@@ -16,7 +16,7 @@ class Crud
   * @param array $data the data for insert
   * @param string $database the database for insert (optional)
   */
-  public function insert($table, $data, $database = false)
+  public function insertData($table, $data, $database = false)
   {
 
     $table = !empty($database) ? $database.'.'.$table : $table;
@@ -71,7 +71,7 @@ class Crud
   * @param string $where is the where clause for the update (optional)
   * @param string $database the database for insert (optional)
   */
-  public function update($table, $data, $where = '', $database = '')
+  public function updateData($table, $data, $where = '', $database = '')
   {
 
     $table = !empty($database) ? $database.'.'.$table : $table;
@@ -115,7 +115,7 @@ class Crud
   * @param string $where is the where clause for delete
   * @param string $database the database for delete (optional)
   */
-  public function delete($table, $where, $database = '')
+  public function deleteData($table, $where, $database = '')
   {
 
     $table = !empty($database) ? $database.'.'.$table : $table;
