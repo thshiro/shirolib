@@ -15,7 +15,7 @@ class Crud
     *   PDO mysql connection
     *   @param object
     */
-    private $connection;
+    public $connection;
 
 
 
